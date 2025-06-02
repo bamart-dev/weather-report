@@ -147,6 +147,10 @@ color: green;
 color: teal;
 }
 
+.blue {
+color: rgb(38, 38, 196)
+}
+
 .cloudy {
 background-color: lightgrey;
 }
