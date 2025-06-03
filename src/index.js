@@ -1,54 +1,72 @@
 "use strict"
 
+const state = {
+  temp: null,
+  tempValue: null,
+	landscape: null,
+	increaseTempButton: null,
+	decreaseTempButton: null,
+}
+
+/////////////////
+// TEMPERATURE //
+/////////////////
+
 const increaseTemp = () => {
-  const temp = document.getElementById("tempValue");
-  let tempValue = temp.textContent;
-  tempValue++;
-  temp.textContent = `${tempValue}`;
-  setColorAndLandscape(temp);
+  calculateTempValue(1);
+	setColorAndLandscape(state.temp);
 };
 
 const decreaseTemp = () => {
-  const temp = document.getElementById("tempValue");
-  let tempValue = temp.textContent;
-  tempValue--;
-  temp.textContent = `${tempValue}`;
-  setColorAndLandscape(temp);
+  calculateTempValue(-1);
+	setColorAndLandscape(state.temp);
 }
 
-const setColorAndLandscape = (temp) => {
-  const landscape = document.getElementById("landscape");
-  let tempValue = temp.textContent;
-  if (tempValue >= 80) {
-    temp.className = '${temp.className} red';
-    landscape.textContent = "🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂";
-  } else if (tempValue >= 70) {
-    temp.className = '${temp.className} yellow';
-    landscape.textContent = "🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷";
-  } else if (tempValue >= 60) {
-    temp.className = '${temp.className} green';
-    landscape.textContent = "🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃";
-  } else if (tempValue >= 50) {
-    temp.className = '${temp.className} teal';
-    landscape.textContent = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
+const calculateTempValue = (x) => {
+	state.tempValue = parseInt(state.temp.textContent);
+  state.tempValue += x;
+	state.temp.textContent = `${state.tempValue}`;
+}
+
+const setColorAndLandscape = () => {
+  if (state.tempValue >= 80) {
+    state.temp.className = '${temp.className} red';
+    state.landscape.textContent = "🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂";
+  } else if ( state.tempValue >= 70) {
+    state.temp.className = '${temp.className} yellow';
+    state.landscape.textContent = "🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷";
+  } else if (state.tempValue >= 60) {
+    state.temp.className = '${temp.className} green';
+    state.landscape.textContent = "🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃";
+  } else if (state.tempValue >= 50) {
+    state.temp.className = '${temp.className} teal';
+    state.landscape.textContent = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
   } else {
-    temp.className = '${temp.className} blue';
-    landscape.textContent = "❄️🪾☃️🏂❄️🪾🥶☃️🏂❄️🪾☃️🏂";
+    state.temp.className = '${temp.className} blue';
+    state.landscape.textContent = "❄️🪾☃️🏂❄️🪾🥶☃️🏂❄️🪾☃️🏂";
   }
 };
 
-const increaseTempEventHandler = () => {
-  const increaseButton = document.getElementById("increaseTempControl");
-  increaseButton.addEventListener('click', increaseTemp);
+const registerTempEvents = () => {
+	state.increaseTempButton.addEventListener('click', increaseTemp);
+	state.decreaseTempButton.addEventListener('click', decreaseTemp);
+}
+
+//////////////
+// Controls //
+/////////////
+
+const loadControls = () => {
+	state.temp = document.getElementById('tempValue');
+	state.landscape = document.getElementById("landscape");
+	state.increaseTempButton = document.getElementById("increaseTempControl");
+	state.decreaseTempButton = document.getElementById("decreaseTempControl");
+}
+
+const onLoaded = () => {
+  // steps to carry out when the page has loaded
+  loadControls();
+  registerTempEvents();
 };
 
-const decreaseTempEventHandler = () => {
-  const decreaseButton = document.getElementById("decreaseTempControl");
-  decreaseButton.addEventListener('click', decreaseTemp);
-};
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  increaseTempEventHandler();
-  decreaseTempEventHandler();
-});
+onLoaded()
