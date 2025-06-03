@@ -4,8 +4,10 @@ const state = {
   temp: null,
   tempValue: null,
 	landscape: null,
+	cityName: null,
+	cityNameInput: null,
 	increaseTempButton: null,
-	decreaseTempButton: null,
+	decreaseTempButton: null
 }
 
 /////////////////
@@ -22,9 +24,9 @@ const decreaseTemp = () => {
 	setColorAndLandscape(state.temp);
 }
 
-const calculateTempValue = (x) => {
+const calculateTempValue = (changeBy) => {
 	state.tempValue = parseInt(state.temp.textContent);
-  state.tempValue += x;
+  state.tempValue += changeBy;
 	state.temp.textContent = `${state.tempValue}`;
 }
 
@@ -47,9 +49,16 @@ const setColorAndLandscape = () => {
   }
 };
 
+const setCityName = () => {
+  state.cityName.textContent = state.cityNameInput.value;
+}
+
 const registerTempEvents = () => {
+  // Temperature event handlers
 	state.increaseTempButton.addEventListener('click', increaseTemp);
 	state.decreaseTempButton.addEventListener('click', decreaseTemp);
+  // City name event handler
+  state.cityNameInput.addEventListener('input', setCityName);
 }
 
 //////////////
@@ -59,8 +68,10 @@ const registerTempEvents = () => {
 const loadControls = () => {
 	state.temp = document.getElementById('tempValue');
 	state.landscape = document.getElementById("landscape");
+	state.cityName = document.getElementById("headerCityName");
 	state.increaseTempButton = document.getElementById("increaseTempControl");
 	state.decreaseTempButton = document.getElementById("decreaseTempControl");
+	state.cityNameInput = document.querySelector("#cityNameInput");
 }
 
 const onLoaded = () => {
