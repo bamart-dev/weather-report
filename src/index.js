@@ -105,11 +105,20 @@ const getTemperature = (latitude, longitud) => {
 const getCurrentTemp = () => {
   findLatAndLon(state.cityName.textContent)
     .then (response => {
-      state.temp.textContent = getTemperature(response.lat, response.lon)
+      return  getTemperature(response.lat, response.lon)
+    })
+    .then((tempCurrent) => {
+      state.temp.textContent = convertKelvinToFahrenheit(tempCurrent)
+      setColorAndLandscape();
     })
 
 };
 
+const convertKelvinToFahrenheit= (tempCurrent) => {
+  const kelvinBase =32;
+  const tempCurrent = (tempCurrent - kelvinBase) * 9 /5 +32;
+  return tempCurrent
+};
 
 //////////////
 // Controls //
