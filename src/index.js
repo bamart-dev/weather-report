@@ -9,6 +9,10 @@ const state = {
 	increaseTempButton: null,
 	decreaseTempButton: null,
   currentTempButton: null,
+  skySelect: null,
+  sky: null,
+  gardenContent: null,
+
 }
 
 /////////////////
@@ -54,24 +58,10 @@ const setCityName = () => {
   state.cityName.textContent = state.cityNameInput.value;
 }
 
-const convertKtoF = (temperature) => {
-    const kelvinBase = 273.15;
-    const conversion = Math.round((temperature - kelvinBase) * 9/5 + 32);
-    return conversion;
-};
-
-const registerTempEvents = () => {
-  // Temperature event handlers
-	state.increaseTempButton.addEventListener('click', increaseTemp);
-	state.decreaseTempButton.addEventListener('click', decreaseTemp);
-  // City name event handler
-  state.cityNameInput.addEventListener('input', setCityName);
-  state.currentTempButton.addEventListener('click', getCurrentTemp);
-}
-
 ////////////
 // Axios //
 //////////
+const controller = new AbortController();
 const LOCATION_URL = 'http://127.0.0.1:5000/location';
 const findLatAndLon = (cityName) => {
   return axios
@@ -87,6 +77,9 @@ const findLatAndLon = (cityName) => {
         const { lat, lon } = response.data[0];
         // console.log({ lat, lon })
         return { lat, lon };
+    })
+    .catch(error => {
+        console.log('Invalid city name');
     });
 };
 const WEATHER_URL = 'http://127.0.0.1:5000/weather';
@@ -102,41 +95,83 @@ const getTemperature = (latitude, longitud) => {
         }
     )
     .then (response => {
-        // console.log(response.data["main"]["temp"])
-        // console.log(response.data.main.temp)
-        const currentTemp = response.data.main.temp;
-        return currentTemp;
+        console.log(response.data["main"]["temp"])
+        console.log(response.data.main.temp)
+        return response.data["main"]["temp"]
+    })
+    .catch(error => {
+        console.log('Invalid coordinates');
     });
   }
 
 const getCurrentTemp = () => {
   findLatAndLon(state.cityName.textContent)
     .then (response => {
-    //   console.log(response.lat, response.lon);
-      getTemperature(response.lat, response.lon)
-        .then (response => {
-        //   console.log(convertKtoF(response));
-          state.temp.textContent = convertKtoF(response);
-          state.tempValue = parseInt(state.temp.textContent);
-          setColorAndLandscape();
-          return;
-        })
+      return  getTemperature(response.lat, response.lon)
     })
+    .then((tempCurrent) => {
+      state.temp.textContent = convertKelvinToFahrenheit(tempCurrent);
+      state.tempValue = parseInt(state.temp.textContent);
+      setColorAndLandscape();
+    })
+    .catch (error => {
+        console.log('Can not get current temperature')
+
+    })
+
 };
+
+const convertKelvinToFahrenheit= (tempCurrent) => {
+  const kelvinBase = 273.15;
+  tempCurrent = Math.round((tempCurrent - kelvinBase) * 9 /5 +32);
+  return tempCurrent
+};
+
+/////////
+// SKY //
+////////
+const skyIcons = {
+  Clear: '      ☀️               ',
+  Clouds:'☁️ ☁️ ☁️ ☁️ 🌤 ☁️ ☁️ ☁️ ☁️',
+  Rain: '🌧️ 🌧️ 🌧️ 🌧️ 🌦️ 🌧️ 🌧️ 🌧️ 🌧️',
+  Thunderstorm: '⛈️ ⛈️ ⛈️ ⛈️ 🌦️ ⛈️ ⛈️ ⛈️ ⛈️',
+  Snow: '🌨️ ❄️ 🌨️ ❄️ 🌨️ ❄️ 🌨️ ❄️ 🌨️',
+  Fog: '🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️',
+}
+
+const setSky = (event) => {
+  const selectedValue = skySelect.value;
+  sky.textContent = skyIcons[selectedValue];
+  gardenContent.classList.remove("skyClear", "skyRain", "skySnow", "skyClouds", "skyThunderstorm", "skyFog");
+  gardenContent.classList.add('sky' + selectedValue);
+}
 
 
 //////////////
 // Controls //
 /////////////
 
+const registerTempEvents = () => {
+  // Temperature event handlers
+	state.increaseTempButton.addEventListener('click', increaseTemp);
+	state.decreaseTempButton.addEventListener('click', decreaseTemp);
+  // City name event handler
+  state.cityNameInput.addEventListener('input', setCityName);
+  state.currentTempButton.addEventListener('click', getCurrentTemp);
+  state.skySelect.addEventListener('change', setSky);
+}
+
 const loadControls = () => {
-	state.temp = document.getElementById('tempValue');
+  state.temp = document.getElementById('tempValue');
 	state.landscape = document.getElementById("landscape");
 	state.cityName = document.getElementById("headerCityName");
 	state.increaseTempButton = document.getElementById("increaseTempControl");
 	state.decreaseTempButton = document.getElementById("decreaseTempControl");
 	state.cityNameInput = document.querySelector("#cityNameInput");
   state.currentTempButton = document.querySelector("#currentTempButton");
+  state.skySelect = document.getElementById("skySelect");
+  state.sky = document.getElementById("sky");
+  state.gardenContent = document.getElementById("gardenContent")
 }
 
 const onLoaded = () => {
