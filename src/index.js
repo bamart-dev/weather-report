@@ -139,13 +139,12 @@ const skyIcons = {
   Fog: '🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️',
 }
 
-const setSky = (event) => {
+const setSky = () => {
   const selectedValue = skySelect.value;
-  sky.textContent = skyIcons[selectedValue];
-  gardenContent.classList.remove("skyClear", "skyRain", "skySnow", "skyClouds", "skyThunderstorm", "skyFog");
-  gardenContent.classList.add('sky' + selectedValue);
+  state.sky.textContent = skyIcons[selectedValue];
+  state.gardenContent.classList.remove("skyClear", "skyRain", "skySnow", "skyClouds", "skyThunderstorm", "skyFog");
+  state.gardenContent.classList.add('sky' + selectedValue);
 }
-
 
 //////////////
 // Controls //
