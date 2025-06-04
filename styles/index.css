@@ -1,7 +1,7 @@
 h2 {
     margin: 0 auto 2rem auto;
 }
-  
+
 body {
 display: grid;
 grid-template-columns: 1fr 2fr;
@@ -151,18 +151,26 @@ color: teal;
 color: rgb(38, 38, 196)
 }
 
-.cloudy {
+.skyClouds {
 background-color: lightgrey;
 }
 
-.sunny {
+.skyClear {
 background-color: rgb(221, 255, 255);
 }
 
-.rainy {
+.skyRain {
 background-color: lightblue;
 }
 
-.snowy {
+.skySnow {
 background-color: lightsteelblue;
+}
+
+.skyThunderstorm {
+background-color: #2b549f;
+}
+
+.skyFog {
+background-color: rgb(197, 193, 193);
 }
