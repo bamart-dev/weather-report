@@ -12,7 +12,7 @@ const state = {
   skySelect: null,
   sky: null,
   gardenContent: null,
-
+  cityNameReset: null
 }
 
 /////////////////
@@ -61,7 +61,7 @@ const setCityName = () => {
 ////////////
 // Axios //
 //////////
-const controller = new AbortController();
+
 const LOCATION_URL = 'http://127.0.0.1:5000/location';
 const findLatAndLon = (cityName) => {
   return axios
@@ -105,7 +105,7 @@ const getTemperature = (latitude, longitud) => {
   }
 
 const getCurrentTemp = () => {
-  findLatAndLon(state.cityName.textContent)
+  findLatAndLon(state.cityNameInput.value)
     .then (response => {
       return  getTemperature(response.lat, response.lon)
     })
@@ -147,10 +147,25 @@ const setSky = () => {
 }
 
 //////////////
+////City/////
+//////////////
+const resetCityName = () => {
+  state.cityNameInput.defaultValue = 'Anchorage';
+  state.cityNameInput.value = state.cityNameInput.defaultValue
+  setCityName();
+  getCurrentTemp();
+  // state.cityName.textContent = state.cityNameInput.defaultValue;
+  // state.cityNameInput.value = '';
+  // setCityName();
+  // state.cityName.textContent = '';
+
+};
+
+//////////////
 // Controls //
 /////////////
 
-const registerTempEvents = () => {
+const registerEvents = () => {
   // Temperature event handlers
 	state.increaseTempButton.addEventListener('click', increaseTemp);
 	state.decreaseTempButton.addEventListener('click', decreaseTemp);
@@ -158,6 +173,7 @@ const registerTempEvents = () => {
   state.cityNameInput.addEventListener('input', setCityName);
   state.currentTempButton.addEventListener('click', getCurrentTemp);
   state.skySelect.addEventListener('change', setSky);
+  state.cityNameReset.addEventListener('click', resetCityName);
 }
 
 const loadControls = () => {
@@ -170,13 +186,16 @@ const loadControls = () => {
   state.currentTempButton = document.querySelector("#currentTempButton");
   state.skySelect = document.getElementById("skySelect");
   state.sky = document.getElementById("sky");
-  state.gardenContent = document.getElementById("gardenContent")
+  state.gardenContent = document.getElementById("gardenContent");
+  state.cityNameReset = document.getElementById("cityNameReset");
 }
 
 const onLoaded = () => {
-  // steps to carry out when the page has loaded
-  loadControls();
-  registerTempEvents();
+    // steps to carry out when the page has loaded
+    loadControls();
+    registerEvents();
+    setCityName();
+    getCurrentTemp();
 };
 
 onLoaded()
