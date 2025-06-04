@@ -108,15 +108,16 @@ const getCurrentTemp = () => {
       return  getTemperature(response.lat, response.lon)
     })
     .then((tempCurrent) => {
-      state.temp.textContent = convertKelvinToFahrenheit(tempCurrent)
+      state.temp.textContent = convertKelvinToFahrenheit(tempCurrent);
+      state.tempValue = parseInt(state.temp.textContent);
       setColorAndLandscape();
     })
 
 };
 
 const convertKelvinToFahrenheit= (tempCurrent) => {
-  const kelvinBase =32;
-  const tempCurrent = (tempCurrent - kelvinBase) * 9 /5 +32;
+  const kelvinBase = 273.15;
+  tempCurrent = Math.round((tempCurrent - kelvinBase) * 9 /5 +32);
   return tempCurrent
 };
 
