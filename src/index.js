@@ -54,6 +54,12 @@ const setCityName = () => {
   state.cityName.textContent = state.cityNameInput.value;
 }
 
+const convertKtoF = (temperature) => {
+    const kelvinBase = 273.15;
+    const conversion = Math.round((temperature - kelvinBase) * 9/5 + 32);
+    return conversion;
+};
+
 const registerTempEvents = () => {
   // Temperature event handlers
 	state.increaseTempButton.addEventListener('click', increaseTemp);
@@ -79,7 +85,7 @@ const findLatAndLon = (cityName) => {
     )
     .then(response => {
         const { lat, lon } = response.data[0];
-        console.log({ lat, lon })
+        // console.log({ lat, lon })
         return { lat, lon };
     });
 };
@@ -96,18 +102,26 @@ const getTemperature = (latitude, longitud) => {
         }
     )
     .then (response => {
-        console.log(response.data["main"]["temp"])
-        console.log(response.data.main.temp)
-        return response.data["main"]["temp"]
+        // console.log(response.data["main"]["temp"])
+        // console.log(response.data.main.temp)
+        const currentTemp = response.data.main.temp;
+        return currentTemp;
     });
   }
 
 const getCurrentTemp = () => {
   findLatAndLon(state.cityName.textContent)
     .then (response => {
-      state.temp.textContent = getTemperature(response.lat, response.lon)
+    //   console.log(response.lat, response.lon);
+      getTemperature(response.lat, response.lon)
+        .then (response => {
+        //   console.log(convertKtoF(response));
+          state.temp.textContent = convertKtoF(response);
+          state.tempValue = parseInt(state.temp.textContent);
+          setColorAndLandscape();
+          return;
+        })
     })
-
 };
 
 
