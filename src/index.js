@@ -127,6 +127,36 @@ const convertKelvinToFahrenheit= (tempCurrent) => {
   return tempCurrent
 };
 
+const convertTempFC = (fromUnit, toUnit, tempCurrent) => {
+  let tempNew;
+  if (fromUnit === 'F' && toUnit === 'C') {
+    tempNew = Math.round((tempCurrent - 32) * 5 / 9);
+  } else if (fromUnit === 'C' && toUnit === 'F') {
+    tempNew = Math.round((tempCurrent * 9 / 5) + 32);
+  }
+  return tempNew
+};
+
+const getCurrentTempUnit = () => {
+  return state.tempFahrenheit.classList.contains('selected') ? 'F' : 'C';
+};
+
+const toggleSelectedUnit = (selectedUnit, otherUnit) => {
+  selectedUnit.classList.add('selected');
+  otherUnit.classList.remove('selected');
+};
+
+const tempUnitSwitchHandler = (fromUnit, toUnit, fromClass, toClass) => {
+  return () => {
+    if (getCurrentTempUnit() === toUnit) return;
+
+    const tempCurrent = parseInt(state.temp.textContent);
+    const tempNew = convertTempFC(fromUnit, toUnit, tempCurrent);
+    state.temp.textContent = `${tempNew}`;
+    toggleSelectedUnit(toClass, fromClass);
+  };
+};
+
 /////////
 // SKY //
 ////////
