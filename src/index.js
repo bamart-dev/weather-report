@@ -12,7 +12,9 @@ const state = {
   skySelect: null,
   sky: null,
   gardenContent: null,
-  cityNameReset: null
+  cityNameReset: null,
+  tempFahrenheit: null,
+  tempCelsius: null
 }
 
 /////////////////
@@ -204,6 +206,8 @@ const registerEvents = () => {
   state.currentTempButton.addEventListener('click', getCurrentTemp);
   state.skySelect.addEventListener('change', setSky);
   state.cityNameReset.addEventListener('click', resetCityName);
+  state.tempFahrenheit.addEventListener('click', tempUnitSwitchHandler('C', 'F', state.tempCelsius, state.tempFahrenheit));
+  state.tempCelsius.addEventListener('click', tempUnitSwitchHandler('F', 'C', state.tempFahrenheit, state.tempCelsius));
 }
 
 const loadControls = () => {
@@ -218,6 +222,8 @@ const loadControls = () => {
   state.sky = document.getElementById("sky");
   state.gardenContent = document.getElementById("gardenContent");
   state.cityNameReset = document.getElementById("cityNameReset");
+  state.tempFahrenheit = document.querySelector(".tempFahrenheit");
+  state.tempCelsius = document.querySelector(".tempCelsius");
 }
 
 const onLoaded = () => {
