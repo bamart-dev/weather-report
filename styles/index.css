@@ -63,7 +63,6 @@ padding: 2rem;
 text-align: center;
 width: 90%;
 height: 90%;
-/* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
 box-shadow: var(--box-shadow);
 
 grid-area: cityName;
@@ -145,7 +144,6 @@ text-align: center;
 }
 
 .garden__content {
-/* min-height: 250px; */
 height: 90%;
 width: 100%;
 min-width: fit-content;
@@ -200,69 +198,75 @@ height: 80%;
 
 .temperature__section,
 .sky__section {
-  background-color: white;
-  padding: .5rem 2rem;
-  border-radius: 8px;
-  min-width: 220px;
-  text-align: center;
-  flex: 1;
+background-color: white;
+padding: .5rem 2rem;
+border-radius: 8px;
+min-width: 220px;
+text-align: center;
+flex: 1;
 height: 90%;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-around;
 }
 
-/* Subheadings */
 .temperature__section h3,
-.sky__section h3 {
-  font-size: 1.1rem;
-  color: var(--blue);
+.sky__section h3 {font-size: 1.1rem;color: var(--blue);
 }
 
-/* Temperature Layout */
 .temperature__content {
-  display: flex;
-  justify-content: center;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+width: 50%;
+justify-content: space-evenly;
 }
 
-.temperature__controls {
-    /* align-self: center; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 1.6rem;
+.temperature__controls {display: flex;align-items: center;justify-content: center;flex-direction: column;font-size: 1.6rem;
 }
 
 .temp__control-button {
     font-size: 1.25rem;
     cursor: pointer;
-    transition:0.3s ease;
+    transition: 0.3s ease;
 }
 
 .temp__control-button:hover {
 transform: scale(1.1);
 }
 
-/* .temperature__controls span {
-    display: block;
-} */
-
 #tempValue {
-  font-size: 2rem;
-  font-weight: bold;
+font-size: 2rem;
+font-weight: bold;
 }
 
-/* Sky Dropdown */
+.temp__units-unit {
+cursor: pointer;
+transition: 0.3 ease;
+}
+
+.temp__units-unit:hover {
+font-weight: bold;
+}
+
+.temp__units-unit.selected {
+font-weight: bold;
+}
+
+.temp__units-unit:hover .temp__units-unit.selected:not(:hover){
+font-weight: 400;
+}
+
 #skySelect {
-  font-size: 1rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 60%;
+font-size: 1rem;
+padding: 0.4rem 0.6rem;
+border-radius: 6px;
+border: 1px solid #ccc;
+width: 60%;
 }
 
 footer {
