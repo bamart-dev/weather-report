@@ -1,25 +1,43 @@
+:root {
+    --blue: rgb(6, 60, 91);
+    --background-white: #ffffffb5;
+    --box-shadow:rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
 h2 {
     margin: 0 auto 2rem auto;
+    color: var(--blue);
 }
 
 body {
 display: grid;
-grid-template-columns: 1fr 2fr;
-grid-template-rows: auto auto auto auto;
-grid-gap: 1rem;
+grid-template-columns: 40% 60%; 
+grid-template-rows: 1fr 1fr 1fr 1fr .5fr;
+grid-template-areas: 
+    'header header'
+    'cityName garden'
+    'cityName garden'
+    'cityName forecast'
+    'footer footer';
+
+height: 100vh;
+width: 100vw;
 
 font-family: "Rubik", sans-serif;
 font-size: 18px;
-background-color: #1b69f9;
-margin: 2rem;
+background-image: url(https://images.unsplash.com/photo-1514454529242-9e4677563e7b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+margin: 0;
+padding: 0 7rem;
 }
 
 .header__header {
-color: white;
-grid-column: span 3;
+color: var(--blue);
+grid-area: header;
 display: flex;
-align-items: center;
-margin: 2rem auto 3rem 0;
+align-items: end;
+justify-content: center;
+padding-bottom: 2rem;
+text-shadow: 1.5px 1.5px 3px rgb(250, 239, 241);
 }
 
 .header__header > h1 {
@@ -28,7 +46,6 @@ font-size: 3em;
 }
 
 .header__city-name {
-font-style: oblique;
 font-size: 2rem;
 }
 
@@ -36,91 +53,226 @@ font-size: 2rem;
 .header__city-name::after {
 content: "✨";
 }
+/* ----------------------- */
+/* CITY-NAME SECTION START */
 
-.temperature__section,
-.sky__section,
 .city-name__section {
-border-radius: 8px;
+background-color: var(--background-white);
+border-radius: 12px;
 padding: 2rem;
-background-color: white;
-}
-
-.temperature__section {
-grid-row: 2;
-}
-
-.temperature__section button {
-    background-color: #1b69f9;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 10px
-}
-
-.sky__section {
-grid-row: 3;
-}
-
-.city-name__section {
-grid-row: 4;
-}
-
-.garden__section {
-grid-row: 2 / span 3;
-grid-column: 2;
 text-align: center;
-align-self: center;
-}
+width: 90%;
+height: 90%;
+/* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+box-shadow: var(--box-shadow);
 
-.temperature__content {
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-/* justify-content: center; */
-}
+grid-area: cityName;
+justify-self: start;
+align-self: end;
 
-#tempValue {
-font-size: 3rem;
-margin-left: 1.5rem;
-/* padding-right: 1rem; */
-/* margin-right: 1.5rem; */
-}
-
-.temperature__controls {
 display: flex;
 flex-direction: column;
-align-items: center;
+justify-content: center;
+gap: 1rem;
+}
+
+#cityNameInput {
+padding: 0.8rem 1rem;
+font-size: 1.1rem;
+border-radius: 8px;
+border: 1px solid #999;
+width: 80%;
+max-width: 300px;
+margin: 0 auto;
+}
+
+.city-name__buttons button{
+padding: 0.7rem 1.4rem;
+font-size: 1rem;
+margin: 0.5rem;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+font-family: "Rubik", sans-serif;
+transition: background-color 0.3s ease;
+}
+
+#currentTempButton {
+background-color: white;
+color: #222;
+transition: 0.3s ease;
+}
+
+#currentTempButton:hover {
+background-color: #f1f1f1;
+transform: scale(1.05);
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+border: 1px solid var(--blue);
+}
+
+#cityNameReset {
+background-color: var(--blue);
+color: white;
+transition: 0.3s ease;
+}
+
+#cityNameReset:hover {
+background-color: #0f3b91;
+transform: scale(1.05);
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+/* CITY-NAME SECTION END */
+/* --------------------- */
+
+/* ---------------------------- */
+/* WEATHER GARDEN SECTION START */
+
+.garden__section {
+grid-area: garden;
+justify-self: center;
+align-content: end;
+
+padding: 1rem;
+width: 100%;
 }
 
 .garden__section > h2 {
 color: white;
+font-size: 1.6rem;
+margin-bottom: 1rem;
+text-align: center;
 }
 
 .garden__content {
-min-height: 200px;
-max-width: fit-content;
+/* min-height: 250px; */
+height: 90%;
+width: 100%;
+min-width: fit-content;
 margin: auto;
 padding: 2rem;
 
 display: flex;
 flex-direction: column;
 justify-content: space-between;
+align-items: center;
 
-border-radius: 8px;
+border-radius: 16px;
 font-size: 2em;
+box-shadow: var(--box-shadow);
 }
 
-.city-name__reset-btn {
-border: 0;
-background-color: #1655cc;
-color: white;
+/* WEATHER GARDEN SECTION END */
+/* ---------------------------- */
+
+/* ---------------------- */
+/* FORECAST SECTION START */
+.forecast__section {
+grid-area: forecast;
+justify-self: center;
+align-self: center;
+
+width: 95%;
+height: 90%;
+background-color: var(--background-white);
 border-radius: 8px;
-padding: 1rem;
-font-family: "Rubik", sans-serif;
+padding: 1rem 1.5rem;
+margin-top: 1rem;
+box-shadow: var(--box-shadow);
+}
+
+.forecast__section h2 {
+font-size: 1.2rem;
+font-weight: 600;
+text-align: center;
+margin-bottom: 1rem;
+}
+
+.forecast__section-div {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: flex-start;
+flex-wrap: wrap;
+gap: 1.5rem;
+height: 80%;
+}
+
+.temperature__section,
+.sky__section {
+  background-color: white;
+  padding: .5rem 2rem;
+  border-radius: 8px;
+  min-width: 220px;
+  text-align: center;
+  flex: 1;
+height: 90%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Subheadings */
+.temperature__section h3,
+.sky__section h3 {
+  font-size: 1.1rem;
+  color: var(--blue);
+}
+
+/* Temperature Layout */
+.temperature__content {
+  display: flex;
+  justify-content: center;
+}
+
+.temperature__controls {
+    /* align-self: center; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.6rem;
+}
+
+.temp__control-button {
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition:0.3s ease;
+}
+
+.temp__control-button:hover {
+transform: scale(1.1);
+}
+
+/* .temperature__controls span {
+    display: block;
+} */
+
+#tempValue {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Sky Dropdown */
+#skySelect {
+  font-size: 1rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 60%;
+}
+
+footer {
+grid-area: footer;
+align-content: end;
+text-align: center;
+font-size: 0.9rem;
+padding: 1rem 0;
+color: var(--blue);
+line-height: 1.5;
 }
 
 .red {

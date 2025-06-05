@@ -131,7 +131,7 @@ const convertKelvinToFahrenheit= (tempCurrent) => {
 // SKY //
 ////////
 const skyIcons = {
-  Clear: '      ☀️               ',
+  Clear: '          ☀️           ',
   Clouds:'☁️ ☁️ ☁️ ☁️ 🌤 ☁️ ☁️ ☁️ ☁️',
   Rain: '🌧️ 🌧️ 🌧️ 🌧️ 🌦️ 🌧️ 🌧️ 🌧️ 🌧️',
   Thunderstorm: '⛈️ ⛈️ ⛈️ ⛈️ 🌦️ ⛈️ ⛈️ ⛈️ ⛈️',
