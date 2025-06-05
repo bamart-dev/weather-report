@@ -86,7 +86,7 @@ const findLatAndLon = (cityName) => {
 };
 const WEATHER_URL = 'http://127.0.0.1:5000/weather';
 
-const getTemperature = (latitude, longitud) => {
+const getForcast = (latitude, longitud) => {
   return axios
     .get(WEATHER_URL,
         {
@@ -99,21 +99,24 @@ const getTemperature = (latitude, longitud) => {
     .then (response => {
         console.log(response.data["main"]["temp"])
         console.log(response.data.main.temp)
-        return response.data["main"]["temp"]
+        console.log(response.data.weather[0].main)
+        return [response.data.main.temp, response.data.weather[0].main]
     })
     .catch(error => {
         console.log('Invalid coordinates');
     });
   }
 
-const getCurrentTemp = () => {
+const getCurrentForecast = () => {
   findLatAndLon(state.cityNameInput.value)
     .then (response => {
-      return  getTemperature(response.lat, response.lon)
+      return  getForcast(response.lat, response.lon)
     })
-    .then((tempCurrent) => {
-      state.temp.textContent = convertKelvinToFahrenheit(tempCurrent);
+    .then((weatherData) => {
+      state.temp.textContent = convertKelvinToFahrenheit(weatherData[0]);
       state.tempValue = parseInt(state.temp.textContent);
+      state.skySelect.value = weatherData[1];
+      setSky();+
       setColorAndLandscape();
     })
     .catch (error => {
@@ -185,7 +188,7 @@ const resetCityName = () => {
   state.cityNameInput.defaultValue = 'Anchorage';
   state.cityNameInput.value = state.cityNameInput.defaultValue
   setCityName();
-  getCurrentTemp();
+  getCurrentForecast();
   // state.cityName.textContent = state.cityNameInput.defaultValue;
   // state.cityNameInput.value = '';
   // setCityName();
@@ -203,7 +206,7 @@ const registerEvents = () => {
 	state.decreaseTempButton.addEventListener('click', decreaseTemp);
   // City name event handler
   state.cityNameInput.addEventListener('input', setCityName);
-  state.currentTempButton.addEventListener('click', getCurrentTemp);
+  state.currentTempButton.addEventListener('click', getCurrentForecast);
   state.skySelect.addEventListener('change', setSky);
   state.cityNameReset.addEventListener('click', resetCityName);
   state.tempFahrenheit.addEventListener('click', tempUnitSwitchHandler('C', 'F', state.tempCelsius, state.tempFahrenheit));
@@ -231,7 +234,7 @@ const onLoaded = () => {
     loadControls();
     registerEvents();
     setCityName();
-    getCurrentTemp();
+    getCurrentForecast();
 };
 
 onLoaded()
