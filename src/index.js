@@ -44,8 +44,8 @@ const state = {
   gardenContent: null
 };
 
-const WEATHER_URL = 'http://127.0.0.1:5000/weather';
-const LOCATION_URL = 'http://127.0.0.1:5000/location';
+const WEATHER_URL = 'https://weather-report-proxy-server-p10d.onrender.com/weather';
+const LOCATION_URL = 'https://weather-report-proxy-server-p10d.onrender.com/location';
 
 /////////////////
 // TEMPERATURE //
