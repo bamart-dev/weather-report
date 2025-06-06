@@ -60,6 +60,7 @@ const getCurrentForecast = () => {
       state.tempValue = parseInt(state.temp.textContent);
       setColorAndLandscape();
       setSkyByCityLookup(weatherData[1]);
+      toggleSelectedUnit(state.tempFahrenheit, state.tempCelsius);
     })
     .catch (error => {
         console.log('Can not get current temperature:', `(${error})`)
