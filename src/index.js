@@ -1,18 +1,18 @@
 "use strict"
 // GLOBAL VARIABLES
-const TEMP_ICONS = {
-  hot: '🐍  🦂 🌵 🌵 🐍  🏜  🦂 🌵',
-  warm:'🌸🌿 🌼 🌷🌻🌿 ☘️🌱 🌻🌷 🌼',
-  mild:'🌾🌾 🍃 🪨  🛤 🌾🌾🌾 🍃 🌾',
-  cold:'🌲 🌲 🍂 🌲 🍁 🌲 🍂 🌲 🍂',
-  freeze: '☃️ 🏂 ❄️ 🥶 ☃️ ❄️ ☃️ 🏂 ❄️',
-};
+// const TEMP_ICONS = {
+//   hot: '🐍  🦂 🌵 🌵 🐍  🏜  🦂 🌵',
+//   warm:'🌸🌿 🌼 🌷🌻🌿 ☘️🌱 🌻🌷 🌼',
+//   mild:'🌾🌾 🍃 🪨  🛤 🌾🌾🌾 🍃 🌾',
+//   cold:'🌲 🌲 🍂 🌲 🍁 🌲 🍂 🌲 🍂',
+//   freeze: '☃️ 🏂 ❄️ 🥶 ☃️ ❄️ ☃️ 🏂 ❄️',
+// };
 
 const SKY_ICONS = {
   Clear: '          ☀️           ',
   Clouds:'☁️ ☁️ ☁️ ☁️ 🌤 ☁️ ☁️ ☁️ ☁️',
-  Rain: '🌧️ 🌧️ 🌧️ 🌧️ 🌦️ 🌧️ 🌧️ 🌧️ 🌧️',
-  Thunderstorm: '⛈️ ⛈️ ⛈️ ⛈️ 🌦️ ⛈️ ⛈️ ⛈️ ⛈️',
+  Rain: '🌧️ 🌧️ 🌧️ 🌧️ 🌧️ 🌧️ 🌧️ 🌧️ 🌧️',
+  Thunderstorm: '⛈️ ⛈️ ⛈️ ⛈️ ⛈️ ⛈️ ⛈️ ⛈️ ⛈️',
   Snow: '🌨️ ❄️ 🌨️ ❄️ 🌨️ ❄️ 🌨️ ❄️ 🌨️',
   Fog: '🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️🌫️',
 };
@@ -25,6 +25,34 @@ const WEATHER_IDS = {
   'Drizzle': '5',
   'Rain': '3',
   'Thunderstorm': '2'
+};
+
+const TEMP = {
+  hot: {
+    F: 80,
+    C: 27,
+    icon: '🐍  🦂 🌵 🌵 🐍  🏜  🦂 🌵'
+  },
+  warm: {
+    F: 70,
+    C: 21,
+    icon: '🌸🌿 🌼 🌷🌻🌿 ☘️🌱 🌻🌷 🌼'
+  },
+  mild: {
+    F: 60,
+    C: 15,
+    icon: '🌾🌾 🍃 🪨  🛤 🌾🌾🌾 🍃 🌾'
+  },
+  cold: {
+    F: 50,
+    C: 10,
+    icon: '🌲 🌲 🍂 🌲 🍁 🌲 🍂 🌲 🍂'
+  },
+  freeze: {
+    F: 40,
+    C: 5,
+    icon: '☃️ 🏂 ❄️ 🥶 ☃️ ❄️ ☃️ 🏂 ❄️'
+  }
 };
 
 const state = {
@@ -68,21 +96,21 @@ const getCurrentForecast = () => {
 };
 
 const setColorAndLandscape = () => {
-  if (state.tempValue >= 80) {
+  if (state.tempValue >= TEMP.hot.F) {
     state.temp.className = '${temp.className} red';
-    state.landscape.textContent = TEMP_ICONS.hot;
-  } else if ( state.tempValue >= 70) {
+    state.landscape.textContent = TEMP.hot.icon;
+  } else if ( state.tempValue >= TEMP.warm.F) {
     state.temp.className = '${temp.className} yellow';
-    state.landscape.textContent = TEMP_ICONS.warm;
-  } else if (state.tempValue >= 60) {
+    state.landscape.textContent = TEMP.warm.icon;
+  } else if (state.tempValue >= TEMP.mild.F) {
     state.temp.className = '${temp.className} green';
-    state.landscape.textContent = TEMP_ICONS.mild;
-  } else if (state.tempValue >= 50) {
+    state.landscape.textContent = TEMP.mild.icon;
+  } else if (state.tempValue >=  TEMP.cold.F) {
     state.temp.className = '${temp.className} teal';
-    state.landscape.textContent = TEMP_ICONS.cold;
+    state.landscape.textContent = TEMP.cold.icon;
   } else {
     state.temp.className = '${temp.className} blue';
-    state.landscape.textContent = TEMP_ICONS.freeze;
+    state.landscape.textContent = TEMP.freeze.icon;
   }
 };
 
