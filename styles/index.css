@@ -11,9 +11,9 @@ h2 {
 
 body {
 display: grid;
-grid-template-columns: 40% 60%; 
+grid-template-columns: 40% 60%;
 grid-template-rows: 1fr 1fr 1fr 1fr .5fr;
-grid-template-areas: 
+grid-template-areas:
     'header header'
     'cityName garden'
     'cityName garden'
@@ -163,8 +163,8 @@ box-shadow: var(--box-shadow);
 /* WEATHER GARDEN SECTION END */
 /* ---------------------------- */
 
-/* ---------------------- */
-/* FORECAST SECTION START */
+/* -------------------------------- */
+/* FORECAST CONTROLES SECTION START */
 .forecast__section {
 grid-area: forecast;
 justify-self: center;
@@ -269,6 +269,10 @@ border: 1px solid #ccc;
 width: 60%;
 }
 
+
+/* ---------------*/
+/* FOOTER SECTION */
+
 footer {
 grid-area: footer;
 align-content: end;
@@ -278,6 +282,9 @@ padding: 1rem 0;
 color: var(--blue);
 line-height: 1.5;
 }
+
+/* ----------------------*/
+/* COLORS WEATHER PALETTE*/
 
 .red {
 color: red;
