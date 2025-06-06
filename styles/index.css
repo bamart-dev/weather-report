@@ -1,7 +1,8 @@
 :root {
     --blue: rgb(6, 60, 91);
     --background-white: #ffffffb5;
-    --box-shadow:rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    /* --box-shadow:rgba(0, 0, 0, 0.25) 0px 25px 50px -12px; */
+    --box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
 h2 {
@@ -25,7 +26,8 @@ width: 100vw;
 
 font-family: "Rubik", sans-serif;
 font-size: 18px;
-background-image: url(https://images.unsplash.com/photo-1514454529242-9e4677563e7b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+background-image: url(../images/skyBg.jpeg);
+background-attachment: fixed;
 margin: 0;
 padding: 0 7rem;
 }
@@ -33,15 +35,17 @@ padding: 0 7rem;
 .header__header {
 color: var(--blue);
 grid-area: header;
-display: flex;
-align-items: end;
-justify-content: center;
-padding-bottom: 2rem;
+padding: 1.5rem 0;
 text-shadow: 1.5px 1.5px 3px rgb(250, 239, 241);
+
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+padding-bottom: 1rem;
 }
 
 .header__header > h1 {
-margin-right: 2rem;
 font-size: 3em;
 }
 
@@ -75,6 +79,17 @@ justify-content: center;
 gap: 1rem;
 }
 
+.city-name__section img {
+width: 8rem;
+align-self: center;
+justify-self: center;
+margin-bottom: 0.5rem;
+}
+
+.city-name__section-h2 {
+margin-bottom: 1rem;
+}
+
 #cityNameInput {
 padding: 0.8rem 1rem;
 font-size: 1.1rem;
@@ -94,6 +109,7 @@ border-radius: 10px;
 cursor: pointer;
 font-family: "Rubik", sans-serif;
 transition: background-color 0.3s ease;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 
 #currentTempButton {
@@ -222,11 +238,17 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-wrap: wrap;
+gap: 1rem;
+
 width: 50%;
 justify-content: space-evenly;
 }
 
-.temperature__controls {display: flex;align-items: center;justify-content: center;flex-direction: column;font-size: 1.6rem;
+.temperature__controls {
+display: flex;align-items: 
+center;justify-content: 
+center;flex-direction: 
+column;font-size: 1.6rem;
 }
 
 .temp__control-button {
@@ -315,25 +337,231 @@ color: rgb(38, 38, 196)
 }
 
 .skyClouds {
-background-color: lightgrey;
+background: linear-gradient(rgba(221, 242, 250, 0.576), rgba(124, 183, 239, 0.646)), url(../images/clouds.jpeg);
+background-size: cover;
+background-position:center;
 }
 
 .skyClear {
-background-color: rgb(221, 255, 255);
+background-image: url(../images/clear.jpg);
+background-size: cover;
+background-position:top;
 }
 
 .skyRain {
-background-color: lightblue;
+background: linear-gradient(rgba(221, 242, 250, 0.576), rgba(147, 154, 160, 0.646)), url(../images/rain.jpeg);
+background-size: cover;
+background-position:center;
 }
 
 .skySnow {
-background-color: lightsteelblue;
+background-image: linear-gradient(rgba(221, 242, 250, 0.576), rgba(124, 183, 239, 0.646)), url(../images/snow.jpg);
+background-size: cover;
+background-position:center;
 }
 
 .skyThunderstorm {
-background-color: #2b549f;
+background-image: url(../images/thunderstorm.jpeg);
+background-size: cover;
+background-position:center;
 }
 
 .skyFog {
-background-color: rgb(197, 193, 193);
+background-image: url(../images/fog.jpg);
+background-size: cover;
+background-position:center;
+}
+
+/* ------------- */
+/* MEDIA QUERIES */
+/* ------------- */
+
+/* ---------- Small Screens  ---------- */
+@media (max-width: 1024px) {
+body {
+grid-template-columns: 1fr;
+grid-template-rows: auto auto auto auto auto;
+grid-template-areas:
+    "header"
+    "cityName"
+    "garden"
+    "forecast"
+    "footer";
+width: 100vw;
+}
+
+.header__header {
+flex-direction: column;
+align-items: center;
+padding-bottom: 1rem;
+}
+
+.city-name__section img {
+display: none;
+}
+
+.garden__section {
+width: 100%;
+height: 25rem;
+padding: 0
+}
+
+.forecast__section-div {
+    align-items: center;
+}
+
+.city-name__section {
+width: 100%;
+justify-self: center;
+}
+
+.city-name__section-input {
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+}
+
+#cityNameInput {
+margin: 0;
+}
+
+.temperature__section,
+.sky__section {
+    flex-direction: column;
+    width: 100%;
+    min-width: unset;
+}
+
+.temperature__content {
+width: 100%;
+justify-content: space-around;
+}
+
+.temperature__controls {
+flex-direction: row-reverse;
+width: 50%;
+justify-content: space-around;
+}
+
+.forecast__section {
+height: 15rem;
+}
+}
+/* ---------- Ipads / Tablets ---------- */
+@media (max-width: 768px) {
+body {
+font-size: 16px;
+padding: 0 2rem;
+}
+
+h2 {
+margin: 0;
+}
+
+.header__header {
+    padding: 3rem 0;
+}
+
+.header__header > h1 {
+font-size: 2rem;
+}
+
+.header__city-name {
+font-size: 1.4rem;
+}
+
+.city-name__section {
+width: 100%;
+padding: 1.5rem 1rem;
+}
+
+#cityNameInput {
+width: 100%;
+}
+
+.garden__section {
+height: 15rem;
+}
+
+.garden__content {
+font-size: 1.5rem;
+padding: 1.5rem;
+}
+
+.forecast__section-div {
+gap: 1rem;
+}
+
+footer {
+font-size: 1rem;
+padding: 1rem 0;
+}
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 480px) {
+body {
+font-size: 16px;
+padding: 0 0.5rem;
+}
+
+h2 {
+font-size: 1.1rem;
+}
+
+.header__header {
+padding: 1.5rem 1rem 1rem 1rem;
+text-align: center;
+}
+
+.header__header > h1 {
+margin-right: 0;
+font-size: 1.8rem;
+text-align: center;
+}
+
+.header__city-name {
+font-size: 1.3rem;
+}
+
+.city-name__section-input {
+flex-direction: column;
+align-items:center;
+}
+
+#cityNameInput {
+font-size: 1rem;
+padding: 0.7rem 0.8rem;
+}
+
+.forecast__section {
+width: 100%;
+padding: 1rem;
+}
+
+.forecast__section h2{
+font-size: 1.1rem;
+margin-bottom: 10px;
+}
+
+.forecast__section-div {
+display: flex;
+flex-direction: column;
+flex-wrap: nowrap;
+}
+
+.sky__section h3, .temperature__section h3{
+font-size: 1rem;
+}
+.sky__section {
+flex-direction: row;
+}
+
+.temperature__content{
+padding: 5px;
+}
+footer {
+font-size: 0.8rem;
+padding: 2rem 0;
+}
 }
