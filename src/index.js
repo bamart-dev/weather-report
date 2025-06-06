@@ -108,11 +108,23 @@ const setColorAndLandscape = () => {
 };
 
 const increaseTemp = () => {
+  const currentUnit = getCurrentTempUnit();
+  console.log(currentUnit)
+  if (currentUnit === 'C') {
+    toggleSelectedUnit(state.tempFahrenheit, state.tempCelsius);
+    state.temp.textContent = convertTempFC("C", "F", parseInt(state.temp.textContent))
+  }
   calculateTempValue(1);
   setColorAndLandscape(state.temp);
 };
 
 const decreaseTemp = () => {
+  const currentUnit = getCurrentTempUnit();
+  console.log(currentUnit)
+  if (currentUnit === 'C') {
+    toggleSelectedUnit(state.tempFahrenheit, state.tempCelsius);
+    state.temp.textContent = convertTempFC("C", "F", parseInt(state.temp.textContent))
+  }
   calculateTempValue(-1);
   setColorAndLandscape(state.temp);
 }
